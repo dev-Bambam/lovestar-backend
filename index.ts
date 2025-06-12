@@ -9,4 +9,8 @@ const port = process.env.PORT
 
 app.listen(port, () => {
     console.log(`server listening at port:${port}`)
+    // app.post("*", (req, res) => {
+    //    console.log(req);
+    // });
 })
+
