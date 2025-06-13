@@ -7,7 +7,7 @@ const UserSchema: Schema = new Schema<IUser>(
       fullname: { type: String, required: true },
       email: { type: String, required: true, unique: true },
       tel: { type: String, required: true },
-      password: { type: String, required: true },
+      password: { type: String, required: true, select:false },
       role: { type: String, enum: ["student", "tutor", "admin"], default: "student" },
    },
    { timestamps: true }

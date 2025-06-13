@@ -1,5 +1,6 @@
 import { Type } from "@sinclair/typebox";
 
+//main data
 export const UserSchema = Type.Object({
     fullname: Type.String({ minLength: 1 }),
     email: Type.String({ format: "email" }),
@@ -12,4 +13,7 @@ export const UserSchema = Type.Object({
     ], {default:"student"})
 })
 
-export type UserType = typeof UserSchema.static
+export type UserType = typeof UserSchema.static;
+
+export const LoginSchema = Type.Pick(UserSchema, ['email', 'password'])
+export type LoginType = typeof LoginSchema.static

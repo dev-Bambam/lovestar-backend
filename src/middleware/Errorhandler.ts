@@ -1,6 +1,7 @@
 import BaseError from "../utils/error/BaseError.err";
-import { TypeBoxValidationError } from "../utils/error/Custom.err";
+import { ServerError, TypeBoxValidationError } from "../utils/error/Custom.err";
 import { Request, Response, NextFunction } from "express";
+import util from 'util'
 
 const globalErrorHandler = (err: BaseError, req: Request, res: Response, _next: NextFunction) => {
     const statusCode = err.statusCode ?? 500
@@ -11,6 +12,10 @@ const globalErrorHandler = (err: BaseError, req: Request, res: Response, _next: 
 
     if (err instanceof TypeBoxValidationError) {
         errorDetail = {error: err.errors}
+    }
+
+    if (!err.isOperational) {
+        console.error("Server Error:", util.inspect(err, { depth: null, colors: true }));
     }
 
     res.status(statusCode).json({
