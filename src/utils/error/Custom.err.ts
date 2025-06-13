@@ -39,3 +39,9 @@ export class BadRequestError extends BaseError{
         super(message, 400, 'error', 'BAD_REQUEST_ERR')
     }
 }
+
+export class ForbiddenError extends BaseError {
+   constructor(message = "Forbidden: Access Denied") {
+      super(message, 403, "fail", "FORBIDDEN", true);
+   }
+}

@@ -5,16 +5,12 @@ import ProgramModel from "../models/program/program.model";
 import RegistrationModel from "../models/program/registration.model";
 
 export const register = async (data:IUser) => {
-    try {
         const existingUser = await checkIfUserExist(data.email)
         if (existingUser) {
             throw new UserAlreadyExistsError(data.email)
         }
         const user = await registerUser(data);
         return user
-    } catch (error) {
-        throw new ServerError()
-    }
 }
 
 export const getAllPrograms = async () => {
