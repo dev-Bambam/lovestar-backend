@@ -3,6 +3,9 @@
    "version": "1.0.0",
    "description": "A registration App for the Lovestar trainig program, built with express and TypeScript",
    "main": "index.ts",
+   "engines": {
+  "node": ">=20.0.0" 
+},
    "scripts": {
       "dev": "nodemon --watch './**/*.ts' --exec ts-node index.ts",
       "build": "tsc",

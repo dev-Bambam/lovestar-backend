@@ -7,7 +7,6 @@ const express_1 = __importDefault(require("express"));
 const index_route_1 = __importDefault(require("./routes/index.route"));
 const Errorhandler_1 = __importDefault(require("./middleware/Errorhandler"));
 const app = (0, express_1.default)();
-console.log('request got here');
 app.use(express_1.default.json());
 app.use(express_1.default.urlencoded({ extended: true }));
 app.use('/', index_route_1.default);
