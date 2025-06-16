@@ -22,7 +22,7 @@ export const createProgram = async (req: Request, res: Response) => {
 };
 
 export const getProgramWithRegistrations = async (req: Request, res: Response) => {
-   const { programId } = req.params;
+   const programId  = req.params.id;
    const programDetails = await AdminService.getProgramWithRegistrations(programId);
 
    res.status(200).json({

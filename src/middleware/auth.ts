@@ -9,11 +9,12 @@ export const authenticate = (req: Request, res: Response, next: NextFunction) =>
    }
 
    const token = authHeader.split(" ")[1];
+   console.log(`token:${token}`)
    try {
       const decoded = jwt.verify(token, process.env.JWT_SECRET!);
       (req as any).user = decoded;
       next();
    } catch (err) {
-      res.status(401).json({ status: "fail", message: "Invalid token" });
+      res.status(401).json({ status: "fail", message: "Invalid tokenz" });
    }
 };

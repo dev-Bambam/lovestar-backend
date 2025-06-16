@@ -6,7 +6,8 @@ import { UserSchema } from "../../models/user/user.schema";
 const router = Router();
 
 router.post("/register", validateBody(UserSchema), Controller.registerUser);
-router.post("/fetch-all-programs", authenticate, Controller.getAllPrograms);
+router.get("/fetch-all-programs", authenticate, Controller.getAllPrograms);
+router.get('/fetch-a-program/:_id', authenticate, Controller.getSingleProgram)
 router.post("/register-a-program", authenticate, Controller.programRegistration);
 
 export default router;

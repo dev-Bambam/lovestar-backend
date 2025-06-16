@@ -1,6 +1,7 @@
 import express from 'express'
 import { Application } from 'express'
 import router from './routes/index.route'
+import protectRoute from './routes/protected'
 import globalErrorHandler from './middleware/Errorhandler'
 
 const app: Application = express()

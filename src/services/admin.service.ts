@@ -16,8 +16,10 @@ export const createUser = async (data:IUser) => {
 
 export const adminLogin = async (email:string, password:string) => {
     // Use normal login, but check if user.role === 'admin'
-    const user = await UserModel.findOne({ email })
+    const user = await UserModel.findOne({ email }).select("+password");
     if (!user || user.role !== 'admin') throw new ForbiddenError()
+    
+    console.log(`password:${password}, user.password${user.password}`)
     
     const validPassword = await compare(password, user.password)
     if(!validPassword) throw new BadRequestError("Incorrect Password")
@@ -28,7 +30,8 @@ export const adminLogin = async (email:string, password:string) => {
         process.env.JWT_SECRET as string,
         { expiresIn: "24h" }
     );
-    return { ...user, token };
+    user.password = " ";
+    return { token };
 };
 
 export const fetchUsersByRole = async (role:string | undefined) => {
@@ -57,7 +60,7 @@ export const getProgramWithRegistrations = async (programId:string) => {
     // Fetch program by id, count registrations where programId matches
     const id = programId
     const studentCount = await RegistrationModel.countDocuments({ programId: id });
-    const program = await ProgramModel.findById(id);
+    const program = await ProgramModel.findById(id).lean();
 
     return {
         ...program,
