@@ -27,15 +27,6 @@ const corsOptions = {
 // Apply CORS middleware
 app.use(cors(corsOptions));
 
-// Add a health check endpoint
-app.get("/health", (req, res) => {
-   res.status(200).json({
-      status: "success",
-      message: "Server is healthy",
-      timestamp: new Date().toISOString(),
-   });
-});
-
 // Body parsing middleware
 app.use(express.json());
 app.use(express.urlencoded({ extended: true }));
@@ -50,7 +41,18 @@ app.use((req, res, next) => {
    next();
 });
 
-// Routes
+// Add a health check endpoint BEFORE the router
+app.get("/health", (req, res) => {
+   console.log("Health check endpoint hit");
+   res.status(200).json({
+      status: "success",
+      message: "Server is healthy",
+      timestamp: new Date().toISOString(),
+      uptime: process.uptime(),
+   });
+});
+
+// Routes - AFTER health endpoint
 app.use("/", router);
 
 // Global error handler

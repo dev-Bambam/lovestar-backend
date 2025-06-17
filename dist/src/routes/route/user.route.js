@@ -41,6 +41,6 @@ const user_schema_1 = require("../../models/user/user.schema");
 const router = (0, express_1.Router)();
 router.post("/register", (0, validator_1.validateBody)(user_schema_1.UserSchema), Controller.registerUser);
 router.get("/fetch-all-programs", auth_1.authenticate, Controller.getAllPrograms);
-router.get('/fetch-a-program/:_id', auth_1.authenticate, Controller.getSingleProgram);
+router.get('/fetch-a-program/:id', auth_1.authenticate, Controller.getSingleProgram);
 router.post("/register-a-program", auth_1.authenticate, Controller.programRegistration);
 exports.default = router;
