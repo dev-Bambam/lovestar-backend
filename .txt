@@ -1,0 +1,356 @@
+Documentation
+Lovestar-api
+﻿
+
+user
+﻿
+
+POST
+create user
+localhost:3030/user/register
+﻿
+
+Body
+raw (json)
+json
+{
+  "fullname": "Jane Doe",
+  "email": "jane.doe@example.com",
+  "password": "supersecret123",
+  "tel": "+2348012345678",
+  "role": "student"
+}
+POST
+login
+localhost:3030/auth/login\
+you won't need to send role
+
+you recive a response
+
+{
+"status": "success",
+"data": {
+"accessToken": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGMwYzI2N2Y3NWRmMTQ3Yzk0ZjczMiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzUwMDgxOTY1LCJleHAiOjE3NTAwOTk5NjV9.PSuMA2NCDIOnchxol5nBLLTou1YW-OwZGWEt8ZQ7akA",
+"user": {
+"_id": "684c0c267f75df147c94f732",
+"fullname": "Jane Doe",
+"email": "jane.doe@example.com",
+"tel": "+2348012345678",
+"password": "",
+"role": "student",
+"createdAt": "2025-06-13T11:31:50.621Z",
+"updatedAt": "2025-06-13T11:31:50.621Z",
+"__v": 0
+}
+}
+}
+
+﻿
+
+Body
+raw (json)
+json
+{
+    "email": "jane.doe@example.com",
+  "password": "supersecret123"
+}
+GET
+fetch programs
+localhost:3030/user/fetch-all-programs
+Response  
+
+{
+"status": "success",
+"allPrograms": [
+{
+"_id": "684c5aba52f676b204ccb64f",
+"title": "Python Bootcamp",
+"description": "A complete beginner-to-advanced Python course.",
+"whatsAppLink": "https://chat.whatsapp.com/your-group-link",
+"tutor": "68489f9f88455f81c0a81101",
+"createdAt": "2025-06-13T17:07:06.757Z",
+"updatedAt": "2025-06-13T17:07:06.757Z",
+"v": 0
+},
+{
+"_id": "684ff69044de6c52868f90aa",
+"title": "JavaScript Bootcamp",
+"description": "A complete beginner-to-advanced Python course.",
+"whatsAppLink": "https://chat.whatsapp.com/js-bootcamp",
+"tutor": "6848917c1f0908b17b1c56b6",
+"createdAt": "2025-06-16T10:48:48.237Z",
+"updatedAt": "2025-06-16T10:48:48.237Z",
+"v": 0
+}
+]
+}
+
+﻿
+
+Request Headers
+Cache-Control
+no-cache
+Postman-Token
+<calculated when request is sent>
+Content-Type
+application/json
+Content-Length
+<calculated when request is sent>
+Host
+<calculated when request is sent>
+User-Agent
+PostmanRuntime/7.39.1
+Accept
+*/*
+Accept-Encoding
+gzip, deflate, br
+Connection
+keep-alive
+Authorization
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGMwYzI2N2Y3NWRmMTQ3Yzk0ZjczMiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzUwMDgzMjg2LCJleHAiOjE3NTAxMDEyODZ9._3_Py2OHeyl_DAG9vxN89VXxGfj1pg7yCGD11PY09NM
+Body
+raw (json)
+json
+{
+  "title": "Introduction to Python",
+  "description": "A beginner-friendly course on Python programming.",
+  "whatsAppLink": "https://chat.whatsapp.com/your-python-group-link",
+  "tutor": "60f7c2b5e1d2c8a1b4e8d123"
+}
+GET
+fetch a single program
+localhost:3030/user/fetch-a-program/684c5aba52f676b204ccb64f
+﻿
+
+Request Headers
+Cache-Control
+no-cache
+Postman-Token
+<calculated when request is sent>
+Host
+<calculated when request is sent>
+User-Agent
+PostmanRuntime/7.39.1
+Accept
+*/*
+Accept-Encoding
+gzip, deflate, br
+Connection
+keep-alive
+Authorization
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGMwYzI2N2Y3NWRmMTQ3Yzk0ZjczMiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzUwMDgzMjg2LCJleHAiOjE3NTAxMDEyODZ9._3_Py2OHeyl_DAG9vxN89VXxGfj1pg7yCGD11PY09NM
+POST
+register for a program
+localhost:3030/user/register-a-program
+If A user trys to register for multiple program will get
+
+{
+"status": "error",
+"type": "BAD_REQUEST_ERR",
+"message": "You can only registered for a single program"
+}
+
+And on success  
+
+user get
+
+﻿
+
+Request Headers
+Cache-Control
+no-cache
+Postman-Token
+<calculated when request is sent>
+Content-Type
+application/json
+Content-Length
+<calculated when request is sent>
+Host
+<calculated when request is sent>
+User-Agent
+PostmanRuntime/7.39.1
+Accept
+*/*
+Accept-Encoding
+gzip, deflate, br
+Connection
+keep-alive
+Authorization
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGMwYzI2N2Y3NWRmMTQ3Yzk0ZjczMiIsInJvbGUiOiJzdHVkZW50IiwiaWF0IjoxNzUwMDgzMjg2LCJleHAiOjE3NTAxMDEyODZ9._3_Py2OHeyl_DAG9vxN89VXxGfj1pg7yCGD11PY09NM
+Body
+raw (json)
+json
+{
+    "programId":"684ff69044de6c52868f90aa"
+    
+}
+admin
+﻿
+
+POST
+admin login
+localhost:3030/auth/admin/login
+on success you get  
+
+{
+"status": "success",
+"user": {
+"token": "eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGM0YjVmN2M2YjJhNmQxMDMzNTIyMCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYXlvZ29vZGQxOEBnbWFpbC5jb20iLCJpYXQiOjE3NTAwODM4OTgsImV4cCI6MTc1MDE3MDI5OH0.e1EmY6d1FI10Kt4yub8a9f7x3b4EwrEjMl533E-VElo"
+}
+}
+
+and forbidden with code 403 if not admin
+
+﻿
+
+Body
+raw (json)
+json
+{
+    "email":"ayogoodd18@gmail.com",
+    "password":"devBambam"
+}
+POST
+create any user
+localhost:3030/protected/create-user
+﻿
+
+Request Headers
+Cache-Control
+no-cache
+Postman-Token
+<calculated when request is sent>
+Content-Type
+application/json
+Content-Length
+<calculated when request is sent>
+Host
+<calculated when request is sent>
+User-Agent
+PostmanRuntime/7.39.1
+Accept
+*/*
+Accept-Encoding
+gzip, deflate, br
+Connection
+keep-alive
+Authorization
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGM0YjVmN2M2YjJhNmQxMDMzNTIyMCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYXlvZ29vZGQxOEBnbWFpbC5jb20iLCJpYXQiOjE3NTAwODM4OTgsImV4cCI6MTc1MDE3MDI5OH0.e1EmY6d1FI10Kt4yub8a9f7x3b4EwrEjMl533E-VElo
+Body
+raw (json)
+json
+{
+  "email": "nextadmin@example.com",
+  "password": "SuperSecure123!",
+  "role": "admin",
+  "fullname": "Super super",
+  "tel": "+2348012345678"
+}
+GET
+fetch users using role as query
+localhost:3030/protected/fetch-user?role=tutor
+﻿
+
+Request Headers
+Cache-Control
+no-cache
+Postman-Token
+<calculated when request is sent>
+Host
+<calculated when request is sent>
+User-Agent
+PostmanRuntime/7.39.1
+Accept
+*/*
+Accept-Encoding
+gzip, deflate, br
+Connection
+keep-alive
+Authorization
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGM0YjVmN2M2YjJhNmQxMDMzNTIyMCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYXlvZ29vZGQxOEBnbWFpbC5jb20iLCJpYXQiOjE3NTAwODM4OTgsImV4cCI6MTc1MDE3MDI5OH0.e1EmY6d1FI10Kt4yub8a9f7x3b4EwrEjMl533E-VElo
+Query Params
+role
+tutor
+GET
+fetch all programs
+localhost:3030/user/fetch-all-programs
+﻿
+
+Request Headers
+Cache-Control
+no-cache
+Postman-Token
+<calculated when request is sent>
+Host
+<calculated when request is sent>
+User-Agent
+PostmanRuntime/7.39.1
+Accept
+*/*
+Accept-Encoding
+gzip, deflate, br
+Connection
+keep-alive
+Authorization
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGM0YjVmN2M2YjJhNmQxMDMzNTIyMCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYXlvZ29vZGQxOEBnbWFpbC5jb20iLCJpYXQiOjE3NTAwODM4OTgsImV4cCI6MTc1MDE3MDI5OH0.e1EmY6d1FI10Kt4yub8a9f7x3b4EwrEjMl533E-VElo
+GET
+fetch a single program with details
+localhost:3030/protected/get-program-details/684c5aba52f676b204ccb64f
+Reponse
+
+﻿
+
+Request Headers
+Cache-Control
+no-cache
+Postman-Token
+<calculated when request is sent>
+Host
+<calculated when request is sent>
+User-Agent
+PostmanRuntime/7.39.1
+Accept
+*/*
+Accept-Encoding
+gzip, deflate, br
+Connection
+keep-alive
+Authorization
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGM0YjVmN2M2YjJhNmQxMDMzNTIyMCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYXlvZ29vZGQxOEBnbWFpbC5jb20iLCJpYXQiOjE3NTAwODM4OTgsImV4cCI6MTc1MDE3MDI5OH0.e1EmY6d1FI10Kt4yub8a9f7x3b4EwrEjMl533E-VElo
+POST
+create a program
+localhost:3030/protected/create-program
+you get Response
+
+﻿
+
+Request Headers
+Cache-Control
+no-cache
+Postman-Token
+<calculated when request is sent>
+Content-Type
+application/json
+Content-Length
+<calculated when request is sent>
+Host
+<calculated when request is sent>
+User-Agent
+PostmanRuntime/7.39.1
+Accept
+*/*
+Accept-Encoding
+gzip, deflate, br
+Connection
+keep-alive
+Authorization
+Bearer eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpZCI6IjY4NGM0YjVmN2M2YjJhNmQxMDMzNTIyMCIsInJvbGUiOiJhZG1pbiIsImVtYWlsIjoiYXlvZ29vZGQxOEBnbWFpbC5jb20iLCJpYXQiOjE3NTAwODM4OTgsImV4cCI6MTc1MDE3MDI5OH0.e1EmY6d1FI10Kt4yub8a9f7x3b4EwrEjMl533E-VElo
+Body
+raw (json)
+json
+{
+  "title": "HTML Bootcamp",
+  "description": "A complete beginner-to-advanced Python course.",
+  "whatsAppLink": "https://chat.whatsapp.com/html-bootcamp",
+  "tutor": "6848917c1f0908b17b1c56b6"
+}
