@@ -38,7 +38,7 @@ const ProgramSchema = new mongoose_1.Schema({
     title: { type: String, required: true },
     description: { type: String, required: true },
     whatsAppLink: { type: String, required: true },
-    tutor: { type: mongoose_1.Schema.Types.ObjectId, ref: "User", required: true },
+    tutor: { type: String, required: true },
 }, { timestamps: true });
 const ProgramModel = mongoose_1.default.model("Program", ProgramSchema);
 exports.default = ProgramModel;

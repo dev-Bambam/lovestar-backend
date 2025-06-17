@@ -6,7 +6,7 @@ const ProgramSchema: Schema = new Schema<IProgram>(
       title: { type: String, required: true },
       description: { type: String, required: true },
       whatsAppLink: { type: String, required: true },
-      tutor: { type: Schema.Types.ObjectId, ref: "User", required: true },
+      tutor: { type: String, required: true },
    },
    { timestamps: true }
 );
