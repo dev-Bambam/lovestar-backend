@@ -33,7 +33,7 @@ var __importStar = (this && this.__importStar) || (function () {
     };
 })();
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.createUser = exports.fetchUsersByRole = exports.getProgramWithRegistrations = exports.createProgram = exports.adminLogin = void 0;
+exports.deleteProgram = exports.createUser = exports.fetchUsersByRole = exports.getProgramWithRegistrations = exports.createProgram = exports.adminLogin = void 0;
 const AdminService = __importStar(require("./../services/admin.service"));
 const adminLogin = async (req, res) => {
     const { email, password } = req.body;
@@ -80,3 +80,12 @@ const createUser = async (req, res) => {
     });
 };
 exports.createUser = createUser;
+const deleteProgram = async (req, res) => {
+    const id = req.params.id;
+    const result = await AdminService.deleteProgram(id);
+    res.status(200).json({
+        status: 'success',
+        result
+    });
+};
+exports.deleteProgram = deleteProgram;

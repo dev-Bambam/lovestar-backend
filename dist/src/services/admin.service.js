@@ -3,7 +3,7 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
     return (mod && mod.__esModule) ? mod : { "default": mod };
 };
 Object.defineProperty(exports, "__esModule", { value: true });
-exports.getProgramWithRegistrations = exports.createProgram = exports.fetchUsersByRole = exports.adminLogin = exports.createUser = void 0;
+exports.deleteProgram = exports.getProgramWithRegistrations = exports.createProgram = exports.fetchUsersByRole = exports.adminLogin = exports.createUser = void 0;
 const user_service_1 = require("./user.service");
 const user_model_1 = __importDefault(require("../models/user/user.model"));
 const Custom_err_1 = require("../utils/error/Custom.err");
@@ -62,3 +62,8 @@ const getProgramWithRegistrations = async (programId) => {
     };
 };
 exports.getProgramWithRegistrations = getProgramWithRegistrations;
+const deleteProgram = async (programId) => {
+    const id = programId;
+    return await program_model_1.default.deleteOne({ _id: id });
+};
+exports.deleteProgram = deleteProgram;

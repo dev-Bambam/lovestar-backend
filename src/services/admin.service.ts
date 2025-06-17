@@ -67,3 +67,8 @@ export const getProgramWithRegistrations = async (programId:string) => {
         studentCount
     }
 };
+
+export const deleteProgram = async (programId: string) => {
+    const id = programId
+    return await ProgramModel.deleteOne({_id: id})
+}

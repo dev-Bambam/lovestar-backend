@@ -50,3 +50,13 @@ export const createUser = async (req: Request, res: Response) => {
         user
     })
 }
+
+export const deleteProgram = async (req: Request, res: Response) => {
+   const id = req.params.id;
+   const result = await AdminService.deleteProgram(id)
+
+   res.status(200).json({
+      status: 'success',
+      result
+   })
+}
