@@ -2,60 +2,88 @@ import express from "express";
 import cors from "cors";
 import { Application } from "express";
 import router from "./routes/index.route";
-import protectRoute from "./routes/protected";
 import globalErrorHandler from "./middleware/Errorhandler";
 
 const app: Application = express();
 
-console.log("request got here");
+console.log("🚀 Server starting...");
 
-// CORS Configuration - MUST be before other middleware
+// ===== CORS CONFIGURATION - MUST BE FIRST =====
 const corsOptions = {
-   origin: [
-      "http://localhost:3000",
-      "https://localhost:3000",
-      "https://your-frontend-domain.vercel.app", // Replace with your actual frontend domain
-      "https://v0.dev", // For v0 preview
-      "https://preview.v0.dev", // For v0 preview
+   origin: function (origin: any, callback: any) {
+      // Allow requests with no origin (mobile apps, Postman, etc.)
+      if (!origin) return callback(null, true);
+
+      // Allow all origins for now (you can restrict later)
+      return callback(null, true);
+   },
+   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS", "PATCH"],
+   allowedHeaders: [
+      "Content-Type",
+      "Authorization",
+      "Accept",
+      "Origin",
+      "X-Requested-With",
+      "Access-Control-Request-Method",
+      "Access-Control-Request-Headers",
    ],
-   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
-   allowedHeaders: ["Content-Type", "Authorization", "Accept", "Origin", "X-Requested-With"],
-   credentials: false, // Set to true if you need to send cookies
-   optionsSuccessStatus: 200, // For legacy browser support
+   credentials: false,
+   optionsSuccessStatus: 200,
+   preflightContinue: false,
 };
 
-// Apply CORS middleware
+// Apply CORS - MUST BE BEFORE OTHER MIDDLEWARE
 app.use(cors(corsOptions));
 
-// Body parsing middleware
-app.use(express.json());
-app.use(express.urlencoded({ extended: true }));
+// Handle preflight requests explicitly
+app.options("*", cors(corsOptions));
 
-// Request logging middleware (helpful for debugging)
+// ===== OTHER MIDDLEWARE =====
+app.use(express.json({ limit: "10mb" }));
+app.use(express.urlencoded({ extended: true, limit: "10mb" }));
+
+// Request logging
 app.use((req, res, next) => {
    console.log(`${new Date().toISOString()} - ${req.method} ${req.path}`);
    console.log("Headers:", req.headers);
-   if (req.body && Object.keys(req.body).length > 0) {
-      console.log("Body:", req.body);
-   }
    next();
 });
 
-// Add a health check endpoint BEFORE the router
+// ===== HEALTH CHECK - BEFORE ROUTES =====
 app.get("/health", (req, res) => {
-   console.log("Health check endpoint hit");
+   console.log("✅ Health check endpoint hit");
    res.status(200).json({
       status: "success",
-      message: "Server is healthy",
+      message: "Server is healthy and CORS is working",
       timestamp: new Date().toISOString(),
       uptime: process.uptime(),
+      cors: "enabled",
    });
 });
 
-// Routes - AFTER health endpoint
+// Test CORS endpoint
+app.get("/test-cors", (req, res) => {
+   console.log("🌐 CORS test endpoint hit");
+   res.status(200).json({
+      message: "CORS is working!",
+      origin: req.headers.origin,
+      method: req.method,
+   });
+});
+
+// ===== YOUR ROUTES =====
 app.use("/", router);
 
-// Global error handler
+// ===== ERROR HANDLER =====
 app.use(globalErrorHandler);
+
+// 404 handler
+app.use("*", (req, res) => {
+   console.log(`❌ 404 - Route not found: ${req.method} ${req.originalUrl}`);
+   res.status(404).json({
+      status: "error",
+      message: `Route ${req.method} ${req.originalUrl} not found`,
+   });
+});
 
 export default app;
