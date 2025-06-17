@@ -6,7 +6,6 @@ import globalErrorHandler from "./middleware/Errorhandler";
 
 const app: Application = express();
 
-console.log("🚀 Server starting...");
 
 // ===== CORS CONFIGURATION - MUST BE FIRST =====
 const corsOptions = {
@@ -34,9 +33,6 @@ const corsOptions = {
 
 // Apply CORS - MUST BE BEFORE OTHER MIDDLEWARE
 app.use(cors(corsOptions));
-
-// Handle preflight requests explicitly
-app.options("*", cors(corsOptions));
 
 // ===== OTHER MIDDLEWARE =====
 app.use(express.json({ limit: "10mb" }));
@@ -78,7 +74,7 @@ app.use("/", router);
 app.use(globalErrorHandler);
 
 // 404 handler
-app.use("*", (req, res) => {
+app.use((req, res) => {
    console.log(`❌ 404 - Route not found: ${req.method} ${req.originalUrl}`);
    res.status(404).json({
       status: "error",

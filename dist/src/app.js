@@ -8,7 +8,6 @@ const cors_1 = __importDefault(require("cors"));
 const index_route_1 = __importDefault(require("./routes/index.route"));
 const Errorhandler_1 = __importDefault(require("./middleware/Errorhandler"));
 const app = (0, express_1.default)();
-console.log("🚀 Server starting...");
 // ===== CORS CONFIGURATION - MUST BE FIRST =====
 const corsOptions = {
     origin: function (origin, callback) {
@@ -34,8 +33,6 @@ const corsOptions = {
 };
 // Apply CORS - MUST BE BEFORE OTHER MIDDLEWARE
 app.use((0, cors_1.default)(corsOptions));
-// Handle preflight requests explicitly
-app.options("*", (0, cors_1.default)(corsOptions));
 // ===== OTHER MIDDLEWARE =====
 app.use(express_1.default.json({ limit: "10mb" }));
 app.use(express_1.default.urlencoded({ extended: true, limit: "10mb" }));
@@ -70,7 +67,7 @@ app.use("/", index_route_1.default);
 // ===== ERROR HANDLER =====
 app.use(Errorhandler_1.default);
 // 404 handler
-app.use("*", (req, res) => {
+app.use((req, res) => {
     console.log(`❌ 404 - Route not found: ${req.method} ${req.originalUrl}`);
     res.status(404).json({
         status: "error",

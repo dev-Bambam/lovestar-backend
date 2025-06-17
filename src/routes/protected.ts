@@ -6,6 +6,6 @@ import adminRoute from "./route/admin.route";
 
 const protectRoute = Router()
 
-protectRoute.use('/protected', authenticate, adminOnly, adminRoute)
+protectRoute.use('/', authenticate, adminOnly, adminRoute)
 
 export default protectRoute;

@@ -10,5 +10,5 @@ const protected_1 = __importDefault(require("./protected"));
 const router = (0, express_1.Router)();
 router.use("/user", user_route_1.default);
 router.use("/auth", auth_route_1.default);
-router.use('/', protected_1.default);
+router.use('/admin', protected_1.default);
 exports.default = router;
